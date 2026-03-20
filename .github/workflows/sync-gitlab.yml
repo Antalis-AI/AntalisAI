@@ -1,0 +1,64 @@
+name: Sync to GitLab
+
+# ─────────────────────────────────────────────────────────────
+#  Secrets required (Settings → Secrets and variables → Actions)
+#  GITLAB_TOKEN  : GitLab Personal Access Token (scope: write_repository)
+#
+#  Variables required (Settings → Secrets and variables → Actions → Variables)
+#  GITLAB_URL    : URL complète du dépôt GitLab, ex : 
+#                  https://gitlab.com/mon-groupe/open-webui.git
+# ─────────────────────────────────────────────────────────────
+
+on:
+  push:
+    branches:
+      - 'keyrus'
+    tags:
+      - '**'        # tous les tags
+
+jobs:
+  sync:
+    name: Mirror branch/tag → GitLab
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (full history + all branches)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # historique complet
+          fetch-tags: true      # récupère tous les tags
+
+      - name: Configure Git identity
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+
+      - name: Add GitLab remote
+        run: |
+          # Injecte le token dans l'URL pour l'authentification HTTPS
+          GITLAB_REMOTE="https://oauth2:${{ secrets.GITLAB_TOKEN }}@${GITLAB_URL#https://}"
+          git remote add gitlab "$GITLAB_REMOTE"
+        env:
+          GITLAB_URL: ${{ vars.GITLAB_URL }}
+
+      - name: Push current branch to GitLab (create if missing)
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+
+          echo "→ Synchronisation de la branche : $BRANCH"
+
+          # Vérifie si la branche existe sur GitLab
+          if git ls-remote --heads gitlab "$BRANCH" | grep -q "$BRANCH"; then
+            echo "  La branche existe déjà sur GitLab — push forcé."
+          else
+            echo "  Branche absente sur GitLab — création automatique."
+          fi
+
+          git push gitlab "HEAD:refs/heads/$BRANCH" --force
+
+      - name: Push tags to GitLab
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          echo "→ Synchronisation du tag : $TAG"
+          git push gitlab "refs/tags/$TAG" --force
