@@ -14,7 +14,7 @@ RUN apk add --no-cache git
 COPY package.json package-lock.json ./
 RUN npm ci --force
 
-COPY . .
+COPY --exclude=backend . .
 RUN npm run build
 
 # ──────────────────────────────────────────────
@@ -27,7 +27,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # Nginx config : SPA fallback (all routes → index.html)
 RUN printf 'server {\n\
-    listen 80;\n\
+    listen 8080;\n\
     server_name _;\n\
     root /usr/share/nginx/html;\n\
     index index.html;\n\
@@ -35,15 +35,9 @@ RUN printf 'server {\n\
     location / {\n\
         try_files $uri $uri/ /index.html;\n\
     }\n\
-\n\
-    # Forward /api calls to the backend (override NGINX_BACKEND_URL at runtime)\n\
-    # Uncomment and adjust if you run front & back as separate containers:\n\
-    # location /api/ {\n\
-    #     proxy_pass http://backend:8080/api/;\n\
-    # }\n\
 }\n' > /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD wget -qO- http://localhost/ || exit 1
