@@ -36,6 +36,14 @@ RUN mkdir -p /etc/nginx/templates && \
     root /usr/share/nginx/html;\n\
     index index.html;\n\
 \n\
+    client_max_body_size ${MAX_UPLOAD_SIZE:-100m};\n\
+\n\
+    error_page 413 = @error413;\n\
+    location @error413 {\n\
+        default_type application/json;\n\
+        return 413 '"'"'{"detail":"File too large. Maximum upload size is ${MAX_UPLOAD_SIZE:-100m}."}'"'"';\n\
+    }\n\
+\n\
     location /api/ {\n\
         proxy_pass ${BACKEND_URL};\n\
         proxy_set_header Host $host;\n\
