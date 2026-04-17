@@ -93,9 +93,9 @@ ENV TIKTOKEN_ENCODING_NAME="cl100k_base" \
 ## Hugging Face download cache ##
 ENV HF_HOME="/app/backend/data/cache/embedding/models"
 
-WORKDIR /app/backend
-
 COPY /app/static /app/backend/open_webui/
+
+WORKDIR /app/backend
 
 ENV HOME=/root
 
