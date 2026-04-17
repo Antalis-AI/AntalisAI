@@ -35,6 +35,8 @@ COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
 RUN npm run build
 
+COPY /app/static /app/backend/open_webui/
+
 FROM python:3.11.14-slim-bookworm AS backend
 
 ARG USE_CUDA
@@ -92,8 +94,6 @@ ENV TIKTOKEN_ENCODING_NAME="cl100k_base" \
 
 ## Hugging Face download cache ##
 ENV HF_HOME="/app/backend/data/cache/embedding/models"
-
-COPY /app/static /app/backend/open_webui/
 
 WORKDIR /app/backend
 
