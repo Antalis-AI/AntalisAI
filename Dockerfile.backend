@@ -31,8 +31,8 @@ ARG UID
 ARG GID
 
 WORKDIR /app
-COPY backend/ /app/backend/
-COPY static/ /app/backend/open_webui/static/
+COPY . .
+COPY static/ /app/backend/open_webui/
 
 # Python settings
 ENV PYTHONUNBUFFERED=1
