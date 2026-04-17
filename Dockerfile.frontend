@@ -38,15 +38,15 @@ RUN mkdir -p /etc/nginx/templates && \
     root /usr/share/nginx/html;\n\
     index index.html;\n\
 \n\
-    client_max_body_size 100m;\n\
-\n\
-    error_page 413 = @error413;\n\
-    location @error413 {\n\
-        default_type application/json;\n\
-        return 413 '"'"'{"detail":"File too large. Maximum upload size is 100m."}'"'"';\n\
+    location /api/ {\n\
+        proxy_pass ${BACKEND_URL};\n\
+        proxy_set_header Host $host;\n\
+        proxy_set_header X-Real-IP $remote_addr;\n\
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
+        proxy_set_header X-Forwarded-Proto $scheme;\n\
     }\n\
 \n\
-    location /api/ {\n\
+    location /oauth/ {\n\
         proxy_pass ${BACKEND_URL};\n\
         proxy_set_header Host $host;\n\
         proxy_set_header X-Real-IP $remote_addr;\n\

@@ -95,6 +95,8 @@ ENV HF_HOME="/app/backend/data/cache/embedding/models"
 
 WORKDIR /app/backend
 
+COPY /app/static /app/backend/open_webui/
+
 ENV HOME=/root
 
 # Create user and group if not root
