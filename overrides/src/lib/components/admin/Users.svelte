@@ -8,7 +8,7 @@
 
 	import UserList from './Users/UserList.svelte';
 	import Groups from './Users/Groups.svelte';
-	import Groups from './Users/Organizations.svelte';
+	import Organizations from './Users/Organizations.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -140,7 +140,7 @@
 		{#if selectedTab === 'overview'}
 			<UserList />
 		{:else if selectedTab === 'organizations'}
-			<Groups />
+			<Organizations />
 		{:else if selectedTab === 'groups'}
 			<Groups />
 		{/if}
