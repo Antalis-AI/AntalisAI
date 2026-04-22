@@ -14,7 +14,8 @@ RUN apk add --no-cache git
 COPY package.json package-lock.json ./
 RUN npm ci --force
 
-COPY --exclude=backend . .
+COPY --exclude=backend --exclude=overrides . .
+COPY overrides/* ./
 RUN npm run build
 
 # ──────────────────────────────────────────────
