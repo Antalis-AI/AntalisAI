@@ -15,7 +15,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --force
 
 COPY --exclude=backend --exclude=overrides . .
-COPY overrides/* ./
+COPY overrides/src ./src
 RUN npm run build
 
 # ──────────────────────────────────────────────
