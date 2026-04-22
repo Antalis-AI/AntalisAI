@@ -50,6 +50,7 @@ ARG GID
 
 WORKDIR /app
 COPY . .
+COPY overrides/backend ./backend
 
 # Python settings
 ENV PYTHONUNBUFFERED=1
