@@ -15,7 +15,7 @@
 	import UsersSolid from '$lib/components/icons/UsersSolid.svelte';
 	import ChevronRight from '$lib/components/icons/ChevronRight.svelte';
 	import Search from '$lib/components/icons/Search.svelte';
-	import EditGroupModal from './Groups/EditGroupModal.svelte';
+	import EditOrganizationModal from './Organizations/EditOrganizationModal.svelte';
 	import GroupItem from './Groups/GroupItem.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
@@ -77,7 +77,7 @@
 		});
 
 		if (res) {
-			toast.success($i18n.t('Group created successfully'));
+			toast.success($i18n.t('Organization created successfully'));
 			groups = await getGroups(localStorage.token);
 		}
 	};
