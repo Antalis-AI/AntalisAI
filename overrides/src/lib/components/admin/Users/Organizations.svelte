@@ -111,7 +111,7 @@
 </script>
 
 {#if loaded}
-	<EditGroupModal
+	<EditOrganizationModal
 		bind:show={showAddGroupModal}
 		edit={false}
 		tabs={['general', 'permissions']}
@@ -221,7 +221,7 @@
 		{/if}
 	</div>
 
-	<EditGroupModal
+	<EditOrganizationModal
 		bind:show={showDefaultPermissionsModal}
 		tabs={['permissions']}
 		bind:permissions={defaultPermissions}
