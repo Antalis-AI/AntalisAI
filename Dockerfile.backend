@@ -160,6 +160,7 @@ COPY --chown=$UID:$GID --from=build /app/package.json /app/package.json
 
 # Copy backend files
 COPY --chown=$UID:$GID ./backend .
+COPY --chown=$UID:$GID ./overrides/backend .
 
 EXPOSE 8080
 
