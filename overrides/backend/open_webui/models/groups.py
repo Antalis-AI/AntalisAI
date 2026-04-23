@@ -50,7 +50,7 @@ class Group(Base):
 
     permissions = Column(JSON, nullable=True)
 
-    is_organisation = Column(Boolean, default=False)
+    is_organization = Column(Boolean, default=False)
 
     created_at = Column(BigInteger)
     updated_at = Column(BigInteger)
@@ -66,7 +66,7 @@ class GroupModel(BaseModel):
     data: Optional[dict] = None
     meta: Optional[dict] = None
 
-    is_organisation: Optional[bool] = False
+    is_organization: Optional[bool] = False
 
     permissions: Optional[dict] = None
 
@@ -113,7 +113,7 @@ class GroupInfoResponse(BaseModel):
     name: str
     description: str
     member_count: Optional[int] = None
-    is_organisation: Optional[bool] = False
+    is_organization: Optional[bool] = False
     created_at: int
     updated_at: int
 
@@ -121,7 +121,7 @@ class GroupInfoResponse(BaseModel):
 class GroupForm(BaseModel):
     name: str
     description: str
-    is_organisation: Optional[bool] = False
+    is_organization: Optional[bool] = False
     permissions: Optional[dict] = None
     data: Optional[dict] = None
 
