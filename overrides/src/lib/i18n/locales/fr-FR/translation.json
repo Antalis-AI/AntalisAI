@@ -2190,5 +2190,8 @@
 	"Add User Organization": "Ajouter un utilisateur à une organisation",
 	"Organization Name": "Nom de l'organisation",
 	"Organization Description": "Description de l'organisation",
-	"organization": "organisation"
+	"organization": "organisation",
+	"Organization created successfully": "Organisation créée avec succès",
+	"Organization deleted successfully": "Organisation supprimée avec succès",
+	"Organization updated successfully": "Organisation mise à jour avec succès"
 }

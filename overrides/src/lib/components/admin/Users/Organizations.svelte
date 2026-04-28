@@ -44,9 +44,6 @@
 
 	$: filteredGroups = groups
 		.filter((group) => {
-			return group.is_organization;
-		})
-		.filter((group) => {
 			if (query === '') {
 				return true;
 			} else {
@@ -71,6 +68,10 @@
 
 	const setGroups = async () => {
 		groups = await getGroups(localStorage.token);
+		groups = groups
+			.filter((group) => {
+				return group.is_organization;
+			});
 	};
 
 	const addGroupHandler = async (group) => {
@@ -87,6 +88,10 @@
 		if (res) {
 			toast.success($i18n.t('Organization created successfully'));
 			groups = await getGroups(localStorage.token);
+			groups = groups
+			.filter((group) => {
+				return group.is_organization;
+			});
 		}
 	};
 

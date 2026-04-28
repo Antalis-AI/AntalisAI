@@ -203,7 +203,7 @@
 					<div class="w-full max-h-96 overflow-y-auto rounded-lg">
 						{#if includeGroups && filteredGroups.length > 0}
 							<div class="text-xs text-gray-500 mb-1 mx-1">
-								{$i18n.t('Groups')}
+								{$i18n.t('Organizations')}
 							</div>
 
 							<div class="mb-3">
