@@ -1587,7 +1587,7 @@ class OAuthManager:
                         )
                     default_organization = "HQ"
                     if user_data.get('extensionattribute8', None):
-                        default_organization = user_data.get.('extensionattribute8')
+                        default_organization = user_data.get('extensionattribute8')
                         
                     apply_default_group_assignment(request.app.state.config.DEFAULT_GROUP_ID, user.id, db=db)
                     apply_default_organization_assignment(default_organization, user.id, db=db)
