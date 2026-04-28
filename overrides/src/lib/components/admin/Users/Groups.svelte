@@ -15,7 +15,7 @@
 	import UsersSolid from '$lib/components/icons/UsersSolid.svelte';
 	import ChevronRight from '$lib/components/icons/ChevronRight.svelte';
 	import Search from '$lib/components/icons/Search.svelte';
-	import EditOrganizationModal from './Organizations/EditOrganizationModal.svelte';
+	import EditGroupModal from './Groups/EditGroupModal.svelte';
 	import GroupItem from './Groups/GroupItem.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
@@ -44,7 +44,7 @@
 
 	$: filteredGroups = groups
 		.filter((group) => {
-			return group.is_organization;
+			return !group.is_organization;
 		})
 		.filter((group) => {
 			if (query === '') {
@@ -74,18 +74,14 @@
 	};
 
 	const addGroupHandler = async (group) => {
-		const newGroupData = {
-			...group,
-			is_organization: true
-		};
-
-		const res = await createNewGroup(localStorage.token, newGroupData).catch((error) => {
+		
+		const res = await createNewGroup(localStorage.token, group).catch((error) => {
 			toast.error(`${error}`);
 			return null;
 		});
 
 		if (res) {
-			toast.success($i18n.t('Organization created successfully'));
+			toast.success($i18n.t('Group created successfully'));
 			groups = await getGroups(localStorage.token);
 		}
 	};
@@ -119,10 +115,10 @@
 </script>
 
 {#if loaded}
-	<EditOrganizationModal
+	<EditGroupModal
 		bind:show={showAddGroupModal}
 		edit={false}
-		tabs={['general']}
+		tabs={['general', 'permissions']}
 		permissions={defaultPermissions}
 		onSubmit={addGroupHandler}
 	/>
@@ -131,7 +127,7 @@
 		<div class="flex justify-between items-center">
 			<div class="flex items-center md:self-center text-xl font-medium px-0.5 gap-2 shrink-0">
 				<div>
-					{$i18n.t('Organizations')}
+					{$i18n.t('Groups')}
 				</div>
 
 				<div class="text-lg font-medium text-gray-500 dark:text-gray-500">
@@ -148,7 +144,7 @@
 				>
 					<Plus className="size-3" strokeWidth="2.5" />
 
-					<div class="hidden md:block md:ml-1 text-xs">{$i18n.t('New Organization')}</div>
+					<div class="hidden md:block md:ml-1 text-xs">{$i18n.t('New Group')}</div>
 				</button>
 			</div>
 		</div>
@@ -165,8 +161,8 @@
 				<input
 					class="w-full text-sm py-1 rounded-r-xl outline-hidden bg-transparent"
 					bind:value={query}
-					aria-label={$i18n.t('Search Organizations')}
-					placeholder={$i18n.t('Search Organizations')}
+					aria-label={$i18n.t('Search Groups')}
+					placeholder={$i18n.t('Search Groups')}
 				/>
 				{#if query}
 					<div class="self-center pl-1.5 translate-y-[0.5px] rounded-l-xl bg-transparent">
@@ -220,16 +216,16 @@
 			<div class="w-full h-full flex flex-col justify-center items-center my-16 mb-24">
 				<div class="max-w-md text-center">
 					<div class="text-3xl mb-3">👥</div>
-					<div class="text-lg font-medium mb-1">{$i18n.t('No organizations found')}</div>
+					<div class="text-lg font-medium mb-1">{$i18n.t('No groups found')}</div>
 					<div class="text-gray-500 text-center text-xs">
-						{$i18n.t('Use organizations to organize your users and assign permissions.')}
+						{$i18n.t('Use groups to organize your users and assign permissions.')}
 					</div>
 				</div>
 			</div>
 		{/if}
 	</div>
 
-	<EditOrganizationModal
+	<EditGroupModal
 		bind:show={showDefaultPermissionsModal}
 		tabs={['permissions']}
 		bind:permissions={defaultPermissions}
