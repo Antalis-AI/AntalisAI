@@ -25,7 +25,7 @@
 
 	export let custom = true;
 
-	export let tabs = ['general', 'permissions', 'users'];
+	export let tabs = ['general', 'users'];
 
 	let selectedTab = 'general';
 	let loading = false;

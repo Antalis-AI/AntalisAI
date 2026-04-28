@@ -44,6 +44,9 @@
 
 	$: filteredGroups = groups
 		.filter((group) => {
+			return group.is_organization;
+		})
+		.filter((group) => {
 			if (query === '') {
 				return true;
 			} else {
