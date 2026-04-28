@@ -8,7 +8,7 @@
 	import { deleteGroupById, updateGroupById } from '$lib/apis/groups';
 
 	import Pencil from '$lib/components/icons/Pencil.svelte';
-	import EditGroupModal from './EditGroupModal.svelte';
+	import EditOrganizationModal from './Organizations/EditOrganizationModal.svelte';
 
 	export let group = {
 		name: 'Admins',
@@ -52,7 +52,7 @@
 	});
 </script>
 
-<EditGroupModal
+<EditOrganizationModal
 	bind:show={showEdit}
 	edit
 	{group}
