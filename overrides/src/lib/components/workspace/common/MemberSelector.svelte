@@ -22,6 +22,7 @@
 	export let includeUsers = true;
 	export let pagination = false;
 	export let includeSessionUser = false;
+	export let useOrganization = false;
 
 	export let groupIds = [];
 	export let userIds = [];
@@ -85,7 +86,7 @@
 		});
 		groups = groups
 		.filter((group) => {
-			return group.is_organization;
+			return group.is_organization === useOrganization;
 		});
 
 		if (userIds.length > 0) {
@@ -112,7 +113,7 @@
 			<div class="mx-1 mb-1.5">
 				<div class="text-xs text-gray-500 mx-0.5 mb-1">
 					{groupIds.length}
-					{$i18n.t('organization')}
+					{useOrganization ? $i18n.t('organizations') : $i18n.t('groups')}
 				</div>
 				<div class="flex gap-1 flex-wrap">
 					{#each groupIds as id}
