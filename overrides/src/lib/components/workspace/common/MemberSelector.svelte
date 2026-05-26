@@ -113,7 +113,7 @@
 			<div class="mx-1 mb-1.5">
 				<div class="text-xs text-gray-500 mx-0.5 mb-1">
 					{groupIds.length}
-					{useOrganization ? $i18n.t('organizations') : $i18n.t('groups')}
+					{useOrganization ? $i18n.t('Organizations') : $i18n.t('Groups')}
 				</div>
 				<div class="flex gap-1 flex-wrap">
 					{#each groupIds as id}
@@ -204,7 +204,7 @@
 					<div class="w-full max-h-96 overflow-y-auto rounded-lg">
 						{#if includeGroups && filteredGroups.length > 0}
 							<div class="text-xs text-gray-500 mb-1 mx-1">
-								{$i18n.t('Organizations')}
+								{useOrganization ? $i18n.t('Organizations') : $i18n.t('Groups')}
 							</div>
 
 							<div class="mb-3">
