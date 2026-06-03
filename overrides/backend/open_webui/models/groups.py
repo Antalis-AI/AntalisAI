@@ -14,6 +14,7 @@ from sqlalchemy import (
     Column,
     ForeignKey,
     String,
+    Boolean,
     Text,
     and_,
     cast,
