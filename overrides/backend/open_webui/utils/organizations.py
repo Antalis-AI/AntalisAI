@@ -34,11 +34,11 @@ async def apply_default_organization_assignment(
                         ),
                         db=db
                     )
-                    organization_id = group.id
+                    organization_id = group
                 except Exception as e:
                     log.error(f'Failed to add user {user_id} to default organization {default_organization_name}: {e}')
 
             if organization_id:
-                await Groups.add_users_to_group(organization_id, [user_id], db=db)
+                await Groups.add_users_to_group(organization_id.id, [user_id], db=db)
         except Exception as e:
             log.error(f'Failed to add user {user_id} to default organization {default_organization_name}: {e}')
