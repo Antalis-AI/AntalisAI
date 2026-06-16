@@ -29,7 +29,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 # URL du backend, configurable au lancement : docker run -e BACKEND_URL=http://mon-backend:8080
 ENV BACKEND_URL=http://localhost:8080
 
-ENV MAX_UPLOAD_SIZE=100m
+ENV MAX_UPLOAD_SIZE=200m
 
 # Nginx config via template - envsubst remplace BACKEND_URL au démarrage du conteneur
 RUN mkdir -p /etc/nginx/templates && \
@@ -44,7 +44,7 @@ RUN mkdir -p /etc/nginx/templates && \
     error_page 413 = @error413;\n\
     location @error413 {\n\
         default_type application/json;\n\
-        return 413 '"'"'{"detail":"File too large. Maximum upload size is ${MAX_UPLOAD_SIZE:-200m}."}'"'"';\n\
+        return 413 '"'"'{"detail":"File too large. Maximum upload size is ${MAX_UPLOAD_SIZE}."}'"'"';\n\
     }\n\
 \n\
     location /api/ {\n\
