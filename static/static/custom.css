@@ -1,0 +1,11 @@
+.markdown-prose h1 {
+  font-size: 1.5rem !important;
+}
+
+.markdown-prose h2 {
+  font-size: 1.25rem !important;
+}
+
+.markdown-prose h3 {
+  font-size: 1.125rem !important;
+}
