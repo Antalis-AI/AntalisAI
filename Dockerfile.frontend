@@ -60,7 +60,7 @@ RUN mkdir -p /etc/nginx/templates && \
         proxy_set_header Host $host;\n\
         proxy_set_header X-Real-IP $remote_addr;\n\
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
-        proxy_set_header X-Forwarded-Proto $scheme;\n\
+        proxy_set_header X-Forwarded-Proto https;\n\
     }\n\
 \n\
     location /ollama/ {\n\
@@ -68,7 +68,7 @@ RUN mkdir -p /etc/nginx/templates && \
         proxy_set_header Host $host;\n\
         proxy_set_header X-Real-IP $remote_addr;\n\
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
-        proxy_set_header X-Forwarded-Proto $scheme;\n\
+        proxy_set_header X-Forwarded-Proto https;\n\
     }\n\
 \n\
     location /openai/ {\n\
@@ -76,7 +76,7 @@ RUN mkdir -p /etc/nginx/templates && \
         proxy_set_header Host $host;\n\
         proxy_set_header X-Real-IP $remote_addr;\n\
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
-        proxy_set_header X-Forwarded-Proto $scheme;\n\
+        proxy_set_header X-Forwarded-Proto https;\n\
     }\n\
 \n\
     location /ws/ {\n\
@@ -85,6 +85,9 @@ RUN mkdir -p /etc/nginx/templates && \
         proxy_set_header Upgrade $http_upgrade;\n\
         proxy_set_header Connection "upgrade";\n\
         proxy_set_header Host $host;\n\
+        proxy_set_header X-Real-IP $remote_addr;\n\
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
+        proxy_set_header X-Forwarded-Proto https;\n\
         proxy_read_timeout 86400;\n\
     }\n\
 \n\
